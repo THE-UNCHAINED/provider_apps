@@ -1,4 +1,5 @@
 import 'package:bloc_counter_app/provider/favourite_provider.dart';
+import 'package:bloc_counter_app/provider/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -12,8 +13,20 @@ class FavouriteScreen extends StatefulWidget {
 class _FavouriteScreenState extends State<FavouriteScreen> {
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
-      appBar: AppBar(title: Text("FAVOURITE")),
+      appBar: AppBar(
+        title: Text("FAVOURITE"),
+
+        actions: [
+          Switch(
+            value: themeProvider.themeMode == ThemeMode.dark,
+            onChanged: (value) {
+              themeProvider.changeTheme(value);
+            },
+          ),
+        ],
+      ),
       body: ListView.builder(
         itemCount: 30,
         itemBuilder: (context, index) {
